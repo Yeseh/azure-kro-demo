@@ -19,9 +19,9 @@ metadata:
   namespace: cert-manager
 spec:
   interval: 5m
+  values:
+    installCRDs: true
   chart:
-    values:
-      installCRDs: true
     spec:
       chart: cert-manager 
       version: "1.x"
