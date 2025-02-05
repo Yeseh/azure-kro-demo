@@ -13,7 +13,7 @@ metadata:
   name: aso2
   namespace: azureserviceoperator-system
 spec:
-  releaseName: cert-manager 
+  releaseName: aso2 
   interval: 5m
   install:
     crds: CreateReplace
