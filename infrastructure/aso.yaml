@@ -1,0 +1,36 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmChart
+metadata:
+  name: aso 
+  namespace: azureserviceoperator-system 
+spec:
+  interval: 10m
+  chart: podinfo
+  sourceRef:
+    kind: HelmRepository
+    name: podinfo
+  version: "6.x"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: aso2
+  namespace: azureserviceoperator-system
+spec:
+  releaseName: cert-manager 
+  interval: 5m
+  install:
+    crds: CreateReplace
+    createNamespace: true
+  upgrade:
+    crds: CreateReplace
+  chart:
+    spec:
+      chart: azure-service-operator 
+      sourceRef:
+        kind: HelmRepository
+        name: aso 
+        namespace: azureserviceoperator-system 
+      interval: 1m
+  values:
+    crdPattern: 'resources.azure.com/*;containerservice.azure.com/*;keyvault.azure.com/*;managedidentity.azure.com/*;eventhub.azure.com/*'
