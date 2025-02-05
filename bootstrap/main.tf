@@ -39,6 +39,26 @@ resource "kubernetes_namespace" "flux_system" {
   }
 }
 
+resource "kubernetes_namespace" "aso" {
+  metadata {
+    name = "azureserviceoperator-system"
+  }
+
+  lifecycle {
+    ignore_changes = [metadata]
+  }
+}
+
+resource "kubernetes_namespace" "cert_manager" {
+  metadata {
+    name = "cert-manager"
+  }
+
+  lifecycle {
+    ignore_changes = [metadata]
+  }
+}
+
 resource "kubernetes_secret" "ssh_keypair" {
   metadata {
     name      = "flux-system"
